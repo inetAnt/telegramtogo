@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+pylint = "*"
+pytest = "*"
+rope = "*"
+
+[packages]
+argparse = "*"
+python-telegram-bot = "*"
+tgtg-python = {git = "https://github.com/inetAnt/tgtg-python.git", ref = "f882aab058f76fb260b75ad8961c424c9c1ba5b6"}
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
