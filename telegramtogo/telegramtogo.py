@@ -75,24 +75,24 @@ def main():
         current_stock = client.get_items()
 
         for store in current_stock:
-            store_id = store["store"]["store_id"]
+            item_id = store["item"]["item_id"]
             if store["items_available"] < 1:
                 # drop from list if no more items
-                if store_id in previous_stock:
-                    logging.debug(f"removed store {store_id} from stock list")
-                    previous_stock.remove(store_id)
+                if item_id in previous_stock:
+                    logging.debug(f"removed item {item_id} from stock list")
+                    previous_stock.remove(item_id)
                 continue
-            if store_id in previous_stock:
+            if item_id in previous_stock:
                 logging.debug(
-                    f"store {store_id} already in stock list, user already notified"
+                    f"item {item_id} already in stock list, user already notified"
                 )
                 continue
 
             message = f"*{store['display_name']}*\n→ {store['items_available']} item(s) available"
             logging.info(message)
             bot.send_message(chat_id=args.chat_id, text=message, parse_mode="Markdown")
-            logging.debug(f"(re)adding {store_id} to stock list")
-            previous_stock.add(store_id)
+            logging.debug(f"(re)adding {item_id} to stock list")
+            previous_stock.add(item_id)
             time.sleep(0.2)
         time.sleep(60)
 
