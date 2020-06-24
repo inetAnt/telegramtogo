@@ -63,7 +63,7 @@ def main():
 
     logging.info(f"Connecting with username: {args.username}")
     client = TgtgClient(
-        user_agent="TooGoodToGo/20.3.1 (759) (iPhone/iPhone 7; iOS 13.0; Scale/2.00)",
+        user_agent="TooGoodToGo/20.5.2 (795) (iPhone/iPhone 9; iOS 13.5.1; Scale/2.00)",
         **auth,
     )
 
