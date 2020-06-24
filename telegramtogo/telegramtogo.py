@@ -95,9 +95,10 @@ def main():
             logging.info(message)
             logging.debug(f"(re)adding {item_id} to stock list")
             previous_stock.add(item_id)
-        bot.send_message(
-            chat_id=args.chat_id, text="\n\n".join(messages), parse_mode="Markdown"
-        )
+        if messages:
+            bot.send_message(
+                chat_id=args.chat_id, text="\n\n".join(messages), parse_mode="Markdown"
+            )
         time.sleep(60)
 
 
