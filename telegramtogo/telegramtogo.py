@@ -47,21 +47,22 @@ def main():
 
     args = parser.parse_args()
 
+    level = getLoggingLevel(args.verbose)
+    logging.basicConfig(level=level)
+    logging.debug("Logging level set to DEBUG")
+
     if args.username and args.password:
         auth = {
             "email": args.username,
             "password": args.password,
         }
+        logging.info(f"Connecting with username: {args.username}")
     elif args.user_id and args.token:
         auth = {"access_token": args.token, "user_id": args.user_id}
+        logging.info(f"Connecting with token, user_id: {args.user_id}")
     else:
         raise ValueError("no authentication provided")
 
-    level = getLoggingLevel(args.verbose)
-    logging.basicConfig(level=level)
-    logging.debug("Logging level set to DEBUG")
-
-    logging.info(f"Connecting with username: {args.username}")
     client = TgtgClient(
         user_agent="TooGoodToGo/20.5.2 (795) (iPhone/iPhone 9; iOS 13.5.1; Scale/2.00)",
         **auth,
