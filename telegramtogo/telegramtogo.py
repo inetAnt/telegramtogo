@@ -72,6 +72,7 @@ def main():
     previous_stock = set()
 
     while True:
+        messages = []
         current_stock = client.get_items()
 
         for store in current_stock:
@@ -89,11 +90,13 @@ def main():
                 continue
 
             message = f"*{store['display_name']}*\n→ {store['items_available']} item(s) available"
+            messages.append(message)
             logging.info(message)
-            bot.send_message(chat_id=args.chat_id, text=message, parse_mode="Markdown")
             logging.debug(f"(re)adding {item_id} to stock list")
             previous_stock.add(item_id)
-            time.sleep(0.2)
+        bot.send_message(
+            chat_id=args.chat_id, text="\n\n".join(messages), parse_mode="Markdown"
+        )
         time.sleep(60)
 
 
