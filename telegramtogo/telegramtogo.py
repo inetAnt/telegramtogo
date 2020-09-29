@@ -73,7 +73,7 @@ def main():
 
     while True:
         messages = []
-        current_stock = client.get_items()
+        current_stock = client.get_items(page_size=400)
 
         for store in current_stock:
             item_id = store["item"]["item_id"]
