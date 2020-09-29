@@ -64,7 +64,6 @@ def main():
         raise ValueError("no authentication provided")
 
     client = TgtgClient(
-        user_agent="TooGoodToGo/20.5.2 (795) (iPhone/iPhone 9; iOS 13.5.1; Scale/2.00)",
         **auth,
     )
 
