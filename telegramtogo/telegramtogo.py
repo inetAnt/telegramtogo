@@ -28,9 +28,6 @@ def main():
     parser.add_argument("-u", "--username", default=os.environ.get("USERNAME"))
     parser.add_argument("-p", "--password", default=os.environ.get("PASSWORD"))
 
-    parser.add_argument("-id", "--user-id", default=os.environ.get("USER_ID"))
-    parser.add_argument("-t", "--token", default=os.environ.get("TOKEN"))
-
     parser.add_argument("-cid", "--chat-id", default=os.environ.get("CHAT_ID"))
     parser.add_argument("-cto", "--chat-token", default=os.environ.get("CHAT_TOKEN"))
     # Optional verbosity counter (eg. -v, -vv, -vvv, etc.)
@@ -57,9 +54,6 @@ def main():
             "password": args.password,
         }
         logging.info(f"Connecting with username: {args.username}")
-    elif args.user_id and args.token:
-        auth = {"access_token": args.token, "user_id": args.user_id}
-        logging.info(f"Connecting with token, user_id: {args.user_id}")
     else:
         raise ValueError("no authentication provided")
 
