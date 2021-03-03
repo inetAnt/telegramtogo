@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.9
 
 # install pipenv and create pip requirements file
 RUN pip install pipenv
