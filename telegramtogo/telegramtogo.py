@@ -25,6 +25,8 @@ def main():
     """Main entry point of the app"""
     parser = argparse.ArgumentParser()
 
+    parser.add_argument("-e", "--email", default=os.environ.get("EMAIL"))
+
     parser.add_argument("-u", "--username", default=os.environ.get("USERNAME"))
     parser.add_argument("-p", "--password", default=os.environ.get("PASSWORD"))
 
@@ -49,16 +51,20 @@ def main():
     logging.debug("Logging level set to DEBUG")
 
     if args.username and args.password:
-        auth = {
+        kwargs = {
             "email": args.username,
             "password": args.password,
         }
         logging.info(f"Connecting with username: {args.username}")
+    elif args.email:
+        kwargs = {
+            "email": args.email,
+        }
     else:
         raise ValueError("no authentication provided")
 
     client = TgtgClient(
-        **auth,
+        **kwargs,
     )
 
     bot = telegram.Bot(args.chat_token)
