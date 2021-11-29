@@ -32,6 +32,9 @@ def main():
 
     parser.add_argument("-cid", "--chat-id", default=os.environ.get("CHAT_ID"))
     parser.add_argument("-cto", "--chat-token", default=os.environ.get("CHAT_TOKEN"))
+
+    parser.add_argument("-U", "--url", default=os.environ.get("URL"))
+
     # Optional verbosity counter (eg. -v, -vv, -vvv, etc.)
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="Verbosity (-v, -vv, etc)"
@@ -62,6 +65,9 @@ def main():
         }
     else:
         raise ValueError("no authentication provided")
+
+    if args.url:
+        kwargs["url"] = args.url
 
     client = TgtgClient(
         **kwargs,
