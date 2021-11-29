@@ -22,7 +22,7 @@ LOGGING_LEVELS = {0: logging.WARNING, 1: logging.INFO, 2: logging.DEBUG}
 
 
 def main():
-    """ Main entry point of the app """
+    """Main entry point of the app"""
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-u", "--username", default=os.environ.get("USERNAME"))
@@ -96,5 +96,5 @@ def main():
 
 
 if __name__ == "__main__":
-    """ This is executed when ran from the command line """
+    """This is executed when ran from the command line"""
     main()
