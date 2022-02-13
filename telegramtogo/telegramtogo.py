@@ -3,10 +3,10 @@
 telegramtogo
 """
 import argparse
+import json
 import logging
 import os
 import time
-
 
 import telegram
 from tgtg import TgtgClient
@@ -25,10 +25,7 @@ def main():
     """Main entry point of the app"""
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-e", "--email", default=os.environ.get("EMAIL"))
-
-    parser.add_argument("-u", "--username", default=os.environ.get("USERNAME"))
-    parser.add_argument("-p", "--password", default=os.environ.get("PASSWORD"))
+    parser.add_argument("-e", "--email", default=os.environ.get("TGTG_EMAIL"))
 
     parser.add_argument("-cid", "--chat-id", default=os.environ.get("CHAT_ID"))
     parser.add_argument("-cto", "--chat-token", default=os.environ.get("CHAT_TOKEN"))
@@ -53,18 +50,21 @@ def main():
     logging.basicConfig(level=level)
     logging.debug("Logging level set to DEBUG")
 
-    if args.username and args.password:
-        kwargs = {
-            "email": args.username,
-            "password": args.password,
-        }
-        logging.info(f"Connecting with username: {args.username}")
-    elif args.email:
-        kwargs = {
-            "email": args.email,
-        }
-    else:
-        raise ValueError("no authentication provided")
+    logging.debug("Reading credentials from JSON file")
+    try:
+        with open("credentials.json") as f:
+            credentials = json.load(f)
+    except FileNotFoundError:
+        credentials = None
+        logging.debug("No token file exists")
+
+    if not credentials:
+        client = TgtgClient(email=args.email)
+        credentials = client.get_credentials()
+        with open("credentials.json", "w") as f:
+            json.dump(credentials, f)
+
+    kwargs = credentials
 
     if args.url:
         kwargs["url"] = args.url
