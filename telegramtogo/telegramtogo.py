@@ -15,7 +15,7 @@ from .utils import getLoggingLevel
 
 AUTHOR = "Antoine Meillet"
 AUTHOR_EMAIL = "antoine.meillet@gmail.com"
-VERSION = "0.0.3"
+VERSION = "0.1.0"
 LICENSE = "Apache-2.0"
 
 LOGGING_LEVELS = {0: logging.WARNING, 1: logging.INFO, 2: logging.DEBUG}
