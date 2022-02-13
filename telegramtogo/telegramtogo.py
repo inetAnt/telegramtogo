@@ -50,6 +50,8 @@ def main():
     logging.basicConfig(level=level)
     logging.debug("Logging level set to DEBUG")
 
+    bot = telegram.Bot(args.chat_token)
+
     logging.debug("Reading credentials from JSON file")
     try:
         with open("credentials.json") as f:
@@ -59,6 +61,11 @@ def main():
         logging.debug("No token file exists")
 
     if not credentials:
+        bot.send_message(
+            chat_id=args.chat_id,
+            text="Please open email to authenticate",
+            parse_mode="Markdown",
+        )
         client = TgtgClient(email=args.email)
         credentials = client.get_credentials()
         with open("credentials.json", "w") as f:
@@ -72,8 +79,6 @@ def main():
     client = TgtgClient(
         **kwargs,
     )
-
-    bot = telegram.Bot(args.chat_token)
 
     previous_stock = set()
 
